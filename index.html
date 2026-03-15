@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JUMPER — Cybertech Organizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Scan-line overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <div id="app">
+
+    <!-- ── Header ───────────────────────────────────── -->
+    <header>
+      <div class="header-logo">
+        <span class="logo-icon" aria-hidden="true">🦋</span>
+        <h1 class="site-title">JUMPER</h1>
+        <span class="logo-icon" aria-hidden="true">🦋</span>
+      </div>
+      <p class="site-tagline">// organize · reflect · create · ascend //</p>
+    </header>
+
+    <!-- ── Stats bar ─────────────────────────────────── -->
+    <div class="stats-bar" role="region" aria-label="Summary statistics">
+      <div class="stat-item">
+        <span class="stat-number" id="statGoals">0</span>
+        <span class="stat-label">Goals</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="statDone">0</span>
+        <span class="stat-label">Completed</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="statEntries">0</span>
+        <span class="stat-label">Entries</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="statTasks">0/0</span>
+        <span class="stat-label">Tasks Done</span>
+      </div>
+    </div>
+
+    <!-- ── Tab navigation ────────────────────────────── -->
+    <nav class="tabs" role="tablist" aria-label="Main navigation">
+      <button class="tab-btn active" data-tab="goals"   role="tab" aria-selected="true">🎯 Goals</button>
+      <button class="tab-btn"        data-tab="reflect" role="tab" aria-selected="false">📓 Reflect</button>
+      <button class="tab-btn"        data-tab="tasks"   role="tab" aria-selected="false">⚡ Tasks</button>
+      <button class="tab-btn"        data-tab="inspo"   role="tab" aria-selected="false">🔮 Inspire</button>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: Goals
+    ═══════════════════════════════════════════════ -->
+    <section id="section-goals" class="section active" role="tabpanel">
+
+      <div class="card">
+        <h2 class="card-title">
+          <span aria-hidden="true">✦</span> NEW GOAL
+        </h2>
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <input type="text" id="goalTitle" placeholder="What do you want to achieve?" maxlength="120" />
+
+          <div class="input-group">
+            <select id="goalCategory" aria-label="Category" style="flex:1;">
+              <option value="personal">Personal</option>
+              <option value="health">Health &amp; Wellness</option>
+              <option value="career">Career</option>
+              <option value="creative">Creative</option>
+              <option value="other">Other</option>
+            </select>
+            <input type="date" id="goalDeadline" aria-label="Deadline" style="flex:1;" />
+          </div>
+
+          <textarea id="goalDesc" placeholder="Optional notes or details…" rows="2"></textarea>
+
+          <div>
+            <button id="addGoalBtn" class="btn btn-primary">⚡ Initiate Goal</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="neon-divider" aria-hidden="true"></div>
+
+      <div class="goals-grid" id="goalsGrid" role="list" aria-label="Goal cards">
+        <!-- Populated by app.js -->
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: Reflect
+    ═══════════════════════════════════════════════ -->
+    <section id="section-reflect" class="section" role="tabpanel">
+
+      <div class="card">
+        <h2 class="card-title">
+          <span aria-hidden="true">✦</span> NEW ENTRY
+        </h2>
+
+        <p style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);margin-bottom:12px;">
+          HOW ARE YOU FEELING?
+        </p>
+
+        <div class="mood-row" role="group" aria-label="Mood selector">
+          <button class="mood-btn" data-mood="✨" title="Inspired" aria-label="Inspired">✨</button>
+          <button class="mood-btn" data-mood="💜" title="Grateful" aria-label="Grateful">💜</button>
+          <button class="mood-btn" data-mood="🔥" title="Fired up" aria-label="Fired up">🔥</button>
+          <button class="mood-btn" data-mood="🌙" title="Reflective" aria-label="Reflective">🌙</button>
+          <button class="mood-btn" data-mood="😴" title="Tired" aria-label="Tired">😴</button>
+          <button class="mood-btn" data-mood="⚡" title="Energized" aria-label="Energized">⚡</button>
+          <button class="mood-btn" data-mood="🫧" title="Calm" aria-label="Calm">🫧</button>
+          <button class="mood-btn" data-mood="💎" title="Focused" aria-label="Focused">💎</button>
+        </div>
+
+        <textarea id="entryBody" placeholder="What's on your mind? Reflect, rant, dream…" rows="4" style="margin-top:8px;"></textarea>
+
+        <div style="margin-top:12px;">
+          <button id="addEntryBtn" class="btn btn-primary">💜 Log Entry</button>
+        </div>
+      </div>
+
+      <div class="neon-divider" aria-hidden="true"></div>
+
+      <div class="entry-list" id="entryList" role="list" aria-label="Journal entries">
+        <!-- Populated by app.js -->
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: Tasks
+    ═══════════════════════════════════════════════ -->
+    <section id="section-tasks" class="section" role="tabpanel">
+
+      <div class="card">
+        <h2 class="card-title">
+          <span aria-hidden="true">✦</span> ADD TASK
+        </h2>
+
+        <div class="input-group">
+          <input type="text" id="taskText" placeholder="What needs to get done?" maxlength="200" style="flex:1;" />
+          <select id="taskPriority" aria-label="Priority" style="width:130px;">
+            <option value="high">🔴 High</option>
+            <option value="medium" selected>🟡 Medium</option>
+            <option value="low">🔵 Low</option>
+          </select>
+          <button id="addTaskBtn" class="btn btn-primary">+ Queue</button>
+        </div>
+      </div>
+
+      <div class="neon-divider" aria-hidden="true"></div>
+
+      <div class="task-list" id="taskList" role="list" aria-label="Task list">
+        <!-- Populated by app.js -->
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: Inspire
+    ═══════════════════════════════════════════════ -->
+    <section id="section-inspo" class="section" role="tabpanel">
+
+      <div class="card">
+        <h2 class="card-title">
+          <span aria-hidden="true">✦</span> INSPIRATION BOARD
+        </h2>
+        <p style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">
+          &gt; Click any card for a new spark of energy.
+        </p>
+      </div>
+
+      <div class="inspo-grid" id="inspoGrid" aria-label="Inspiration cards">
+        <!-- Populated by app.js -->
+      </div>
+    </section>
+
+  </div><!-- /#app -->
+
+  <!-- Toast notifications -->
+  <div class="toast-container" id="toastContainer" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
